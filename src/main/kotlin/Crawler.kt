@@ -1,3 +1,4 @@
+import mu.KotlinLogging
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Node
@@ -7,9 +8,16 @@ class Crawler(
     private val apartmentRepository: ApartmentRepository,
     private val notificationService: NotificationService
 ) {
+    private val logger = KotlinLogging.logger {}
+
     fun start() {
+        logger.info { "Start crawling..." }
+
         val doc: Document =
             Jsoup.connect("https://zw.cdzj.chengdu.gov.cn/zwdt/SCXX/Default.aspx?action=ucSCXXShowNew2").get()
+
+        logger.info { "Finished crawling, parsing result..." }
+
         val table = doc.select("#ID_ucSCXXShowNew2_gridView").first()!!
         val tableRowsInFirstPage = table.childNodes()[1].childNodes()
 
@@ -21,6 +29,8 @@ class Crawler(
                 newApartments.add(apartment)
             }
         }
+
+        logger.info { "Found [${newApartments.size}] new apartment" }
 
         newApartments.forEach {
             apartmentRepository.saveApartment(it)

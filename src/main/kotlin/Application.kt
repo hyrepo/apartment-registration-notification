@@ -1,22 +1,21 @@
 import com.google.auth.oauth2.GoogleCredentials
-import com.google.cloud.NoCredentials
 import com.google.cloud.firestore.FirestoreOptions
+import mu.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
 
 fun main() {
-    val env = System.getenv("ENV")
-    val projectId = "apartment-registration-alert"
-    val credentials = if (env != "prod") {
-        NoCredentials.getInstance()
-    } else {
-        GoogleCredentials.getApplicationDefault()
-    }
+    logger.info { "Application started" }
+
     val db = FirestoreOptions.getDefaultInstance().toBuilder()
-        .setProjectId(projectId)
-        .setCredentials(credentials)
+        .setProjectId("apartment-registration-alert")
+        .setCredentials(GoogleCredentials.getApplicationDefault())
         .build()
         .service
 
-    val crawler = Crawler(ApartmentRepository(db), NotificationService())
+    val crawler = Crawler(ApartmentRepository(db), NotificationService(listOf(AwsSns())))
 
     crawler.start()
+
+    logger.info { "application finished" }
 }
