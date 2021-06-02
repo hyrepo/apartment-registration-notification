@@ -1,13 +1,13 @@
-import com.amazonaws.services.lambda.runtime.Context
-import com.amazonaws.services.lambda.runtime.RequestHandler
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.firestore.FirestoreOptions
+import com.google.cloud.functions.Context
+import com.google.cloud.functions.RawBackgroundFunction
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
-class Application : RequestHandler<Any, Unit> {
-    override fun handleRequest(input: Any?, context: Context?) {
+class Application : RawBackgroundFunction {
+    override fun accept(json: String?, context: Context?) {
         logger.info { "Application started" }
 
         val db = FirestoreOptions.getDefaultInstance().toBuilder()

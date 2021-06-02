@@ -1,6 +1,17 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:5.2.0"
+    }
+}
+
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.32'
 }
+
+apply plugin: 'com.github.johnrengelman.shadow'
 
 group 'org.hyrepo'
 version '1.0-SNAPSHOT'
@@ -21,9 +32,8 @@ dependencies {
     implementation 'io.github.microutils:kotlin-logging-jvm:2.0.6' 
     implementation 'org.slf4j:slf4j-simple:1.7.29' 
     implementation platform('software.amazon.awssdk:bom:2.15.0')
-    implementation 'software.amazon.awssdk:sns' 
-    implementation 'com.amazonaws:aws-lambda-java-core:1.2.1' 
-    implementation 'com.amazonaws:aws-lambda-java-events:3.8.0' 
+    implementation 'software.amazon.awssdk:sns'
+    implementation 'com.google.cloud.functions:functions-framework-api:1.0.1'
 }
 
 test {
@@ -42,4 +52,8 @@ task buildZip(type: Zip) {
     into('lib') {
         from configurations.runtimeClasspath
     }
+}
+
+shadowJar {
+    mergeServiceFiles()
 }
