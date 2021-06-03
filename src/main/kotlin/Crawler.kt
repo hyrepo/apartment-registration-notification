@@ -55,5 +55,6 @@ class Crawler(
     }
 
     private fun isInterestedDistrict(apartment: Apartment) =
-        apartment.district.contains("高新") || apartment.district.contains("天府")
+        (apartment.district.contains("高新") || apartment.district.contains("天府")) &&
+                (apartment.type.contains("住宅") || apartment.type.contains("公寓"))
 }
