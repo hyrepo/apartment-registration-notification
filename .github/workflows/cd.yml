@@ -30,6 +30,6 @@ jobs:
           runtime: java11
           service_account_email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
           max_instances: 1
-          event_trigger_type: providers/cloud.pubsub/eventTypes/topic.publish
+          event_trigger_type: google.pubsub.topic.publish
           event_trigger_resource: projects/apartment-registration-alert/topics/schedule-trigger
 
