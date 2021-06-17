@@ -3,10 +3,15 @@ import mu.KotlinLogging
 
 data class Apartment(val date: String, val district: String, val type: String, val name: String)
 
-class ApartmentRepository(private var db: Firestore) {
+interface ApartmentRepository {
+    fun hasApartment(apartment: Apartment): Boolean
+    fun saveApartment(apartment: Apartment)
+}
+
+class GcpApartmentRepository(private var db: Firestore) : ApartmentRepository {
     private val logger = KotlinLogging.logger {}
 
-    fun hasApartment(apartment: Apartment): Boolean {
+    override fun hasApartment(apartment: Apartment): Boolean {
         val apartmentsInDb = db.collection("apartments")
             .whereEqualTo("date", apartment.date)
             .whereEqualTo("district", apartment.district)
@@ -31,7 +36,7 @@ class ApartmentRepository(private var db: Firestore) {
 
     }
 
-    fun saveApartment(apartment: Apartment) {
+    override fun saveApartment(apartment: Apartment) {
         logger.info { "Saving $apartment" }
         db.collection("apartments")
             .add(

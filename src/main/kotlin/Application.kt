@@ -10,13 +10,15 @@ class Application : RawBackgroundFunction {
     override fun accept(json: String?, context: Context?) {
         logger.info { "Application started" }
 
-        val db = FirestoreOptions.getDefaultInstance().toBuilder()
-            .setProjectId("apartment-registration-alert")
-            .setCredentials(GoogleCredentials.getApplicationDefault())
-            .build()
-            .service
+        val repository = GcpApartmentRepository(
+            FirestoreOptions.getDefaultInstance().toBuilder()
+                .setProjectId("apartment-registration-alert")
+                .setCredentials(GoogleCredentials.getApplicationDefault())
+                .build()
+                .service
+        )
 
-        val crawler = Crawler(ApartmentRepository(db), NotificationService(listOf(AwsSns())))
+        val crawler = Crawler(repository, NotificationService(listOf(AwsSns())))
 
         crawler.start()
 
