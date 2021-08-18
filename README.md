@@ -7,7 +7,15 @@ The logic is pretty simple, but the main purpose of this application is to try o
 - Serverless computation
 - Cloud-native
 
-All cloud components are covered in the free tier, this application cost $0.
+All cloud components are covered in the free tier as bellow, this application cost $0.
+
+|Component|Type|Free Tier|Platform|
+|:---:|:---:|:---:|:---:|
+|Cloud Functions|Serverless Platform(FaaS)|200M calls / month| GCP
+|Cloud Scheduler|Scheduler|3 jobs / month| GCP
+|Cloud Pub/Sub|Message Service|10GB / month| GCP
+|Cloud Firestore|NoSQL DB|1GB storage, 50000 reads & 20000 writes / day| GCP
+|SNS|Notification Service|1000 Email| AWS
 
 # Architecture
 
