@@ -7,6 +7,8 @@ The logic is pretty simple, but the main purpose of this application is to try o
 - Serverless computation
 - Cloud-native
 
+# Cost
+
 All cloud components are covered in the free tier as bellow, this application cost $0.
 
 |Component|Type|Free Tier|Platform|
