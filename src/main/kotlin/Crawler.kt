@@ -10,7 +10,7 @@ class Crawler(
 ) {
     private val logger = KotlinLogging.logger {}
 
-    fun start() {
+    fun crawl() {
         logger.info { "Start crawling..." }
 
         val doc: Document =

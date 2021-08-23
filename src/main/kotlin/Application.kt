@@ -20,7 +20,7 @@ class Application : RawBackgroundFunction {
 
         val crawler = Crawler(repository, NotificationService(listOf(AwsSns())))
 
-        crawler.start()
+        crawler.crawl()
 
         logger.info { "application finished" }
     }

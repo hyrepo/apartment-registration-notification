@@ -35,7 +35,7 @@ internal class CrawlerTest {
 
         every { apartmentRepository.hasApartment(any()) } returns false
 
-        crawler.start()
+        crawler.crawl()
 
         verify(exactly = 1) {
             apartmentRepository.saveApartment(withArg { assertTrue(it.name == "爱情东麓玖里") })
@@ -58,7 +58,7 @@ internal class CrawlerTest {
 
         every { apartmentRepository.hasApartment(any()) } returns true
 
-        crawler.start()
+        crawler.crawl()
 
         verify(exactly = 0) {
             apartmentRepository.saveApartment(any())
