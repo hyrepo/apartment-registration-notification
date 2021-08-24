@@ -9,6 +9,7 @@ buildscript {
 
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.32'
+    id 'jacoco'
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'
@@ -65,4 +66,18 @@ task buildZip(type: Zip) {
 
 shadowJar {
     mergeServiceFiles()
+}
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+
+jacocoTestReport {
+    reports {
+        csv.enabled true
+    }
 }

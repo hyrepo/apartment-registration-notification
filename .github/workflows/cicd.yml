@@ -18,13 +18,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up JDK 8
         uses: actions/setup-java@v2
         with:
           java-version: '8'
           distribution: 'adopt'
+
       - name: Build with Gradle
         run: ./gradlew build
+
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          generate-branches-badge: true
+          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
 
   deploy:
     runs-on: ubuntu-latest
