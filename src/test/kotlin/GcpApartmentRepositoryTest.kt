@@ -3,6 +3,7 @@ import com.google.cloud.firestore.QueryDocumentSnapshot
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -98,5 +99,27 @@ internal class GcpApartmentRepositoryTest {
         )
     }
 
+    @Test
+    internal fun `should save apartment into DB`() {
+        gcpApartmentRepository.saveApartment(
+            Apartment(
+                date = "2020-01-01",
+                district = "district A",
+                type = "type A",
+                name = "apartment A"
+            )
+        )
 
+        verify(exactly = 1) {
+            firestore.collection("apartments")
+                .add(
+                    mapOf(
+                        "date" to "2020-01-01",
+                        "district" to "district A",
+                        "type" to "type A",
+                        "name" to "apartment A",
+                    )
+                )
+        }
+    }
 }
