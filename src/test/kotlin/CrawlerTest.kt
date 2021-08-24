@@ -26,7 +26,7 @@ internal class CrawlerTest {
 
     @Test
     internal fun `should save new apartment and send notification when find new interested apartments`() {
-        val apartmentPageHtml = this.javaClass.getResource("apartment-page-with-interested-apartment.html").readText()
+        val apartmentPageHtml = this.javaClass.getResource("apartment-page-with-interested-apartment").readText()
         val apartmentDocument = Jsoup.parse(apartmentPageHtml)
         mockkStatic(Jsoup::class)
         every {
@@ -49,7 +49,7 @@ internal class CrawlerTest {
 
     @Test
     internal fun `should not save apartment when interested apartments already existed in database`() {
-        val apartmentPageHtml = this.javaClass.getResource("apartment-page-with-interested-apartment.html").readText()
+        val apartmentPageHtml = this.javaClass.getResource("apartment-page-with-interested-apartment").readText()
         val apartmentDocument = Jsoup.parse(apartmentPageHtml)
         mockkStatic(Jsoup::class)
         every {
