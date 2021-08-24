@@ -1,9 +1,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Continuous Delivery](https://github.com/hyrepo/apartment-registration-alert/actions/workflows/cicd.yml/badge.svg)
-![LINE](https://img.shields.io/badge/line--coverage-50.00%25-orange.svg)
-![BRANCH](https://img.shields.io/badge/branch--coverage-75.00%25-yellow.svg)
-
 ![Coverage](.github/badges/jacoco.svg)
+![Branches](.github/badges/branches.svg)
 
 This application crawls apartments information hourly, if there are new apartments in particular areas open for
 purchase, then an email notification will be triggered.
