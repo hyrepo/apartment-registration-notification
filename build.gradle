@@ -10,7 +10,6 @@ buildscript {
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.32'
     id 'jacoco'
-    id "com.github.dawnwords.jacoco.badge" version "0.2.4"
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'
@@ -80,10 +79,5 @@ jacocoTestReport {
 jacocoTestReport {
     reports {
         csv.enabled true
-        xml.enabled true
     }
-}
-
-jacocoBadgeGenSetting {
-    jacocoReportPath  "$buildDir/reports/jacoco/test/jacocoTestReport.xml"
 }
