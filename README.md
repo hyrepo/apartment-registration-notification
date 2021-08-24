@@ -1,5 +1,6 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Continuous Delivery](https://github.com/hyrepo/apartment-registration-alert/actions/workflows/cicd.yml/badge.svg)
+
 ![Coverage](.github/badges/jacoco.svg)
 ![Branches](.github/badges/branches.svg)
 
