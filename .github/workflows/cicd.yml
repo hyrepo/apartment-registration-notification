@@ -32,6 +32,7 @@ jobs:
           jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
