@@ -1,6 +1,7 @@
 import mu.KotlinLogging
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 import org.jsoup.nodes.Node
 
 
@@ -10,16 +11,16 @@ class Crawler(
 ) {
     private val logger = KotlinLogging.logger {}
 
-    fun crawl() {
+    fun crawl(targetUrl: String) {
         logger.info { "Start crawling..." }
 
         val doc: Document =
-            Jsoup.connect("https://zw.cdzj.chengdu.gov.cn/zwdt/SCXX/Default.aspx?action=ucSCXXShowNew2").get()
+            Jsoup.connect(targetUrl).get()
 
         logger.info { "Finished crawling, parsing result..." }
 
-        val table = doc.select("#ID_ucSCXXShowNew2_gridView").first()!!
-        val tableRowsInFirstPage = table.childNodes()[1].childNodes()
+        val table = doc.select(".table-l.table-la").first()
+        val tableRowsInFirstPage = table.childNodes()[5].childNodes()[1].childNodes().filter { it is Element }
 
         val newApartments = mutableSetOf<Apartment>()
         for (index in 1 until tableRowsInFirstPage.size - 1) {
@@ -39,17 +40,14 @@ class Crawler(
         notificationService.sendNotification()
     }
 
-    private fun parseApartment(
-        tableRowsInFirstPage: MutableList<Node>,
-        index: Int
-    ): Apartment {
+    private fun parseApartment(tableRowsInFirstPage: List<Node>, index: Int): Apartment {
         val apartmentRow = tableRowsInFirstPage[index]
-        val apartmentAttributes = apartmentRow.childNodes()
+        val apartmentAttributes = apartmentRow.childNodes().filter { it is Element }
 
-        val name = apartmentAttributes[2].childNodes()[0].toString()
-        val district = apartmentAttributes[3].childNodes()[0].toString()
-        val type = apartmentAttributes[5].childNodes()[0].toString()
-        val date = apartmentAttributes[8].childNodes()[1].childNodes()[0].toString()
+        val name = apartmentAttributes[1].childNodes()[0].childNodes()[0].toString()
+        val district = apartmentAttributes[2].childNodes()[0].childNodes()[0].toString()
+        val type = apartmentAttributes[3].childNodes()[0].childNodes()[0].toString()
+        val date = apartmentAttributes[5].childNodes()[0].childNodes()[0].toString()
 
         return Apartment(date, district, type, name)
     }
