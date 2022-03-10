@@ -16,7 +16,7 @@ class Application : RawBackgroundFunction {
             .build()
             .service
         val repository = GcpApartmentRepository(firestore)
-        val targetUrl = "https://zw.cdzj.chengdu.gov.cn/zwdt/SCXX/Default.aspx?action=ucSCXXShowNew2"
+        val targetUrl = "https://www.cdfangxie.com/Infor/yushou.html"
 
         val crawler = Crawler(repository, NotificationService(listOf(AwsSns())))
         crawler.crawl(targetUrl)
