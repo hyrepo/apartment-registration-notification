@@ -37,7 +37,7 @@ class Crawler(
             apartmentRepository.saveApartment(it)
             notificationService.addIntoQueue(it)
         }
-        notificationService.sendNotification()
+        notificationService.sendNotification(targetUrl)
     }
 
     private fun parseApartment(tableRowsInFirstPage: List<Node>, index: Int): Apartment {

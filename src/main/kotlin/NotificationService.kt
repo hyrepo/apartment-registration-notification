@@ -27,7 +27,7 @@ class NotificationService(private val brokers: List<NotificationBroker>) {
         apartments.add(apartment)
     }
 
-    fun sendNotification() {
+    fun sendNotification(targetUrl: String) {
         if (apartments.isEmpty()) {
             return
         }
@@ -35,13 +35,13 @@ class NotificationService(private val brokers: List<NotificationBroker>) {
         logger.info { "Sending notification for [${apartments.size}] new apartments" }
 
         val title = "开盘提醒: " + apartments.joinToString(separator = ", ") { it.name }
-        val message = buildContentMessage()
+        val message = buildContentMessage(targetUrl)
         brokers.forEach { it.send(title, message) }
         apartments.clear()
     }
 
-    private fun buildContentMessage() =
+    private fun buildContentMessage(targetUrl: String) =
         apartments.joinToString(separator = "\n") { "[${it.date}][${it.district}][${it.type}]${it.name}" } +
                 "\n\n\n" +
-                "URL: https://zw.cdzj.chengdu.gov.cn/zwdt/SCXX/Default.aspx?action=ucSCXXShowNew2"
+                "URL: $targetUrl"
 }

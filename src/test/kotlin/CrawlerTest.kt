@@ -47,7 +47,7 @@ internal class CrawlerTest {
             notificationService.addIntoQueue(withArg { assertTrue(it.name == "高新区住宅") })
             notificationService.addIntoQueue(withArg { assertTrue(it.name == "天府新区住宅") })
             notificationService.addIntoQueue(withArg { assertTrue(it.name == "天府新区公寓") })
-            notificationService.sendNotification()
+            notificationService.sendNotification(targetUrl)
         }
     }
 

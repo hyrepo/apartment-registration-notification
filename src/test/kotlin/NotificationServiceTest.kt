@@ -22,8 +22,9 @@ internal class NotificationServiceTest {
         notificationService.addIntoQueue(Apartment("2020-08-22", "District A", "Type A", "Apartment A"))
         notificationService.addIntoQueue(Apartment("2020-08-23", "District B", "Type B", "Apartment B"))
 
-        notificationService.sendNotification()
-        notificationService.sendNotification()
+        val targetUrl = "https://test.com"
+        notificationService.sendNotification(targetUrl)
+        notificationService.sendNotification(targetUrl)
 
         verify(exactly = 1) {
             awsSns.send(
@@ -34,7 +35,7 @@ internal class NotificationServiceTest {
                                 "[2020-08-23][District B][Type B]Apartment B\n" +
                                 "\n" +
                                 "\n" +
-                                "URL: https://zw.cdzj.chengdu.gov.cn/zwdt/SCXX/Default.aspx?action=ucSCXXShowNew2"
+                                "URL: $targetUrl"
                     )
                 }
             )
